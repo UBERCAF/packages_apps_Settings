@@ -241,7 +241,9 @@ public class SettingsActivity extends SettingsDrawerActivity
     private static final String LTE_4G_FRAGMENT = "com.android.settings.Lte4GEnableSetting";
     private static final String PROFILEMGR_MAIN_FRAGMENT = "com.android.settings.ProfileMgrMain";
     private static final String MOBILENETWORK_FRAGMENT = "com.android.settings.MobileNetworkMain";
+    private static final String SUPERSU_FRAGMENT = "com.android.settings.SuperSU";
     private static final String SYSTEM_UPDATE = "android.settings.SystemUpdateActivity";
+
     private String mFragmentClass;
     private String mActivityAction;
 
@@ -1069,7 +1071,6 @@ public class SettingsActivity extends SettingsDrawerActivity
              finish();
              return null;
         }
-
         if (fragmentName.equals(SimSettings.class.getName())){
             Log.i(LOG_TAG, "switchToFragment, launch simSettings  ");
             Intent provisioningIntent =
@@ -1080,7 +1081,6 @@ public class SettingsActivity extends SettingsDrawerActivity
             finish();
             return null;
         }
-
         if (LTE_4G_FRAGMENT.equals(fragmentName)) {
             Intent newIntent = new Intent("android.settings.SETTINGS");
             newIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -1088,7 +1088,6 @@ public class SettingsActivity extends SettingsDrawerActivity
             finish();
             return null;
         }
-
         if (PROFILEMGR_MAIN_FRAGMENT.equals(fragmentName)) {
             Intent profilemgrIntent = new Intent();
             profilemgrIntent.setAction("com.codeaurora.STARTPROFILE");
@@ -1105,7 +1104,13 @@ public class SettingsActivity extends SettingsDrawerActivity
             finish();
             return null;
         }
-
+        if (SUPERSU_FRAGMENT.equals(fragmentName)) {
+            Intent superSUIntent = new Intent();
+            superSUIntent.setClassName("eu.chainfire.supersu", "eu.chainfire.supersu.MainActivity");
+            startActivity(superSUIntent);
+            finish();
+            return null;
+        }
 
         if (SYSTEM_UPDATE.equals(fragmentName)) {
             SystemUpdateHandle ();
