@@ -81,6 +81,8 @@ public class DeviceInfoSettings extends SettingsPreferenceFragment implements In
     private static final String MBN_VERSION_PATH = "/persist/speccfg/mbnversion";
     private static final String QGP_VERSION_PATH = "/persist/speccfg/devicetype";
 
+    private static final String KEY_MOD_BUILD_DATE = "build_date";
+
     static final int TAPS_TO_BE_A_DEVELOPER = 7;
 
     long[] mHits = new long[3];
@@ -128,6 +130,7 @@ public class DeviceInfoSettings extends SettingsPreferenceFragment implements In
         setStringSummary(KEY_DEVICE_MODEL, Build.MODEL);
         setStringSummary(KEY_BUILD_NUMBER, Build.DISPLAY);
         findPreference(KEY_BUILD_NUMBER).setEnabled(true);
+
         //setValueSummary(KEY_QGP_VERSION, PROPERTY_QGP_VERSION);
         // Remove QGP Version if property is not present
         //removePreferenceIfPropertyMissing(getPreferenceScreen(), KEY_QGP_VERSION,
@@ -144,6 +147,9 @@ public class DeviceInfoSettings extends SettingsPreferenceFragment implements In
         if(TextUtils.isEmpty(mMbnVersion)){
             getPreferenceScreen().removePreference(findPreference(KEY_MBN_VERSION));
         }
+
+        findPreference(KEY_KERNEL_VERSION).setSummary(DeviceInfoUtils.getFormattedKernelVersion());
+        setValueSummary(KEY_MOD_BUILD_DATE, "ro.build.date");
 
         if (!SELinux.isSELinuxEnabled()) {
             String status = getResources().getString(R.string.selinux_status_disabled);
